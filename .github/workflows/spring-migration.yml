@@ -10,7 +10,7 @@ on:
       dry_run:
         description: 'Dry run mode (no PRs created)'
         required: false
-        default: 'false'
+        default: false
         type: boolean
   schedule:
     # Ejecutar cada lunes a las 2 AM UTC
@@ -42,12 +42,17 @@ jobs:
           cat "$REPOS_FILE" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Install js-yaml
+        run: |
+          npm install js-yaml
+
       - name: Generate matrix
         id: set-matrix
         uses: actions/github-script@v7
         with:
           script: |
             const yaml = require('js-yaml');
+            const fs = require('fs');
             const reposContent = `${{ steps.read-repos.outputs.repos }}`;
             const reposConfig = yaml.load(reposContent);
             
@@ -89,6 +94,10 @@ jobs:
           echo "config<<EOF" >> $GITHUB_OUTPUT
           cat conf/repos.yaml >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Install js-yaml for config parsing
+        run: |
+          npm install js-yaml
 
       - name: Parse migration config
         id: parse-config
