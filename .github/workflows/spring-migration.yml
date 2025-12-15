@@ -81,13 +81,6 @@ jobs:
       - name: Checkout migration repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'maven'
-
       - name: Read migration config
         id: read-config
         run: |
@@ -118,6 +111,14 @@ jobs:
           ref: ${{ matrix.branch }}
           path: target-repo
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+          cache-dependency-path: 'target-repo/pom.xml'
 
       - name: Analyze current dependencies
         id: analyze-deps
