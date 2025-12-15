@@ -1,0 +1,43 @@
+# Ejemplo de configuración de repositorios
+# Copia este archivo a repos.yaml y edita con tus repositorios reales
+
+repositories:
+  # Ejemplo 1: Repositorio en la misma organización
+  - owner: "mi-organizacion"
+    repo: "mi-spring-app"
+    branch: "main"
+  
+  # Ejemplo 2: Repositorio en otra organización
+  - owner: "otra-org"
+    repo: "otra-app"
+    branch: "develop"
+  
+  # Ejemplo 3: Múltiples repositorios
+  - owner: "mi-organizacion"
+    repo: "servicio-usuarios"
+    branch: "main"
+  - owner: "mi-organizacion"
+    repo: "servicio-productos"
+    branch: "main"
+  - owner: "mi-organizacion"
+    repo: "servicio-pedidos"
+    branch: "main"
+
+# Configuración de migración
+migration:
+  # Versión objetivo de Java (recomendado: 17 o 21)
+  target_java_version: "21"
+  
+  # Versión objetivo de Spring Boot (recomendado: 3.2.0 o superior)
+  target_spring_boot_version: "3.2.0"
+  
+  # Recetas de OpenRewrite a aplicar
+  # Puedes agregar más recetas según tus necesidades
+  openrewrite_recipes:
+    - "org.openrewrite.java.migrate.UpgradeToJava21"
+    - "org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_2"
+    - "org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta"
+    - "org.openrewrite.java.migrate.lang.UseTextBlocks"
+    - "org.openrewrite.java.migrate.lang.UseSwitchExpression"
+    # Más recetas disponibles en: https://docs.openrewrite.org/recipes
+

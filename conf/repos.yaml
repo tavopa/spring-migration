@@ -1,0 +1,25 @@
+# Lista de repositorios a migrar
+# Formato: owner/repo-name
+repositories:
+  - owner: "tavopa"
+    repo: "sprint-test"
+    branch: "main"  # Branch por defecto para trabajar
+  #- owner: "example-org"
+  #  repo: "spring-app-2"
+  #  branch: "main"
+  # Agregar más repositorios aquí
+  # - owner: "another-org"
+  #   repo: "another-spring-app"
+  #   branch: "develop"
+
+# Configuración de migración
+migration:
+  target_java_version: "21"  # Versión objetivo de Java
+  target_spring_boot_version: "3.2.0"  # Versión objetivo de Spring Boot
+  openrewrite_recipes:
+    - "org.openrewrite.java.migrate.UpgradeToJava21"
+    - "org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_2"
+    - "org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta"
+    - "org.openrewrite.java.migrate.lang.UseTextBlocks"
+    - "org.openrewrite.java.migrate.lang.UseSwitchExpression"
+
